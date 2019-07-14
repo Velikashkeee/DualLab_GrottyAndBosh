@@ -4,9 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileOperations {
+class FileOperations {
 
-    public static List<String> readFileToList(File file){
+        //reading file by lines
+        //returns List<string>
+
+    static List<String> readFileToList(File file){
         List<String> resultList = new ArrayList<>();
         String fileLine;
         try{
@@ -16,16 +19,15 @@ public class FileOperations {
             while((fileLine =bufferedReader.readLine()) != null){
                 resultList.add(fileLine);
             }
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-        catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
         return resultList;
     }
 
-    public static void exportTimetableToFile(File file, List<AutoBus> busList){
+    //Writing data from List<AutoBus> to outputFile
+
+    static void exportTimetableToFile(File file, List<AutoBus> busList){
         boolean blankLinerequired = true;
         try(FileWriter fileWriter = new FileWriter(file,false)){
             for (AutoBus bus:busList) {

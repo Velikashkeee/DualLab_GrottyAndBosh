@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AutoBus implements Comparable<AutoBus> {
 
-
+    //60 minutes is maximum travel time
     private static final int MAXIMUM_TRAVEL_TIME = 60;
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -16,8 +16,8 @@ public class AutoBus implements Comparable<AutoBus> {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
 
-    public AutoBus(String input){
-        String parsedString[] = input.split(" ");
+    AutoBus(String input){
+        String[] parsedString = input.split(" ");
         this.company = parsedString[0];
         this.departureTime = LocalTime.parse(parsedString[1], FORMAT);
         this.arrivalTime = LocalTime.parse(parsedString[2], FORMAT);
@@ -29,7 +29,7 @@ public class AutoBus implements Comparable<AutoBus> {
         this.arrivalTime = arrivalTime;
     }
 
-    public String getCompany() {
+    String getCompany() {
         return company;
     }
 
@@ -55,9 +55,11 @@ public class AutoBus implements Comparable<AutoBus> {
 
     //Comparator for sort AutoBuses by company
 
-    public static Comparator<AutoBus> companyComparator = (autoBus1, autoBus2) -> (autoBus1.company.compareTo(autoBus2.company)) * (-1);
+    static Comparator<AutoBus> companyComparator = (autoBus1, autoBus2) -> (autoBus1.company.compareTo(autoBus2.company)) * (-1);
 
-    public static List<AutoBus> getEfficientAutoBusList(List<AutoBus> busList){
+    //get correct TimeTable
+
+    static List<AutoBus> getEfficientAutoBusList(List<AutoBus> busList){
         List<AutoBus> resultList = new ArrayList<>();
         for (AutoBus bus:busList) {
             boolean addToList = true;
@@ -72,7 +74,9 @@ public class AutoBus implements Comparable<AutoBus> {
         return resultList;
     }
 
-    public boolean isEfficient(AutoBus otherBus){
+    //check if this bus is more efficient than other
+
+    private boolean isEfficient(AutoBus otherBus){
         boolean result = true;
 
         //if travel time > MAXIMUM_TRAVEL_TIME. default: 60
@@ -109,10 +113,13 @@ public class AutoBus implements Comparable<AutoBus> {
         return this.company + " " + departureTime.format(FORMAT) + " " + arrivalTime.format(FORMAT);
     }
 
-    public int calcTravelTimeInMinutes() {
+    //to get travel time
+
+    private int calcTravelTimeInMinutes() {
         return (this.arrivalTime.getHour() - this.departureTime.getHour()) * 60 + (this.arrivalTime.getMinute()-this.departureTime.getMinute());
     }
 
+    //to sort AutoBuses by arrivalTime
 
     @Override
     public int compareTo(AutoBus bus) {
