@@ -25,7 +25,7 @@ class FileOperations {
         return resultList;
     }
 
-    //Writing data from List<AutoBus> to outputFile
+    //Exporting data from List<AutoBus> to outputFile
 
     static void exportTimetableToFile(File file, List<AutoBus> busList){
         boolean blankLinerequired = true;
